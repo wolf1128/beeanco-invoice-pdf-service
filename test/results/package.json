@@ -1,0 +1,12 @@
+{
+  "name": "@beeanco/invoice-pdf-service",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Your objective is to develop a node.js microservice that renders invoices to PDFs.",
+  "license": "UNLICENSED",
+  "author": "Your name here...",
+  "scripts": {
+    "start": "echo \"Error: Insert your start script here\" && exit 1",
+    "test": "curl -X POST -H \"Content-Type: application/json\" -d @./test/fixtures/sample-request.json http://localhost:3000 --output test/results/sample-request.pdf"
+  }
+}

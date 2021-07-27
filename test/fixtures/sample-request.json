@@ -1,0 +1,43 @@
+{
+  "order": {
+    "id": "1234567",
+    "buyer": {
+      "firstName": "Lisa",
+      "lastName": "Mustermann"
+    },
+    "shippingAddress": {
+      "name": "Lisa Mustermann",
+      "address1": "Max Mustermannstraße 08/15",
+      "address2": null,
+      "zip": "0000",
+      "city": "Musterort",
+      "countryCode": "AT"
+    },
+    "billingAddress": null,
+    "items": [
+      {
+        "product": {
+          "name": "Nachhaltiger Kaffee-Becher",
+          "sku": "203",
+          "vendor": {
+            "name": "avoid waste"
+          }
+        },
+        "quantity": 1,
+        "price": 15.5
+      },
+      {
+        "product": {
+          "name": "Bambus Zahnbürste",
+          "sku": "000",
+          "vendor": {
+            "name": "Pandoo"
+          }
+        },
+        "quantity": 2,
+        "price": 8.0
+      }
+    ],
+    "total": 23.5
+  }
+}

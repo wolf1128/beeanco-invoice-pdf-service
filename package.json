@@ -1,0 +1,28 @@
+{
+  "name": "@beeanco/invoice-pdf-service",
+  "version": "1.0.0",
+  "description": "objective is to develop a node.js microservice that renders invoices to PDFs.",
+  "main": "server.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "start": "echo \"Error: Insert your start script here\" && exit 1",
+    "test": "curl -X POST -H \"Content-Type: application/json\" -d @./test/fixtures/sample-request.json http://localhost:3000 --output test/results/sample-request.pdf"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/professordev7/beeanco-invoice-pdf-service.git"
+  },
+  "author": "Salar Farahmand",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/professordev7/beeanco-invoice-pdf-service/issues"
+  },
+  "homepage": "https://github.com/professordev7/beeanco-invoice-pdf-service#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pdfmake": "^0.2.0"
+  }
+}
