@@ -1,65 +1,59 @@
-const express = require('express');
-const router = express.Router();
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
 const fonts = {
     Roboto: {
-        normal: 'fonts/Roboto-Regular.ttf',
-        bold: 'fonts/Roboto-Medium.ttf',
-        italics: 'fonts/Roboto-Italic.ttf',
-        bolditalics: 'fonts/Roboto-MediumItalic.ttf'
+        normal: 'src/fonts/Roboto-Regular.ttf',
+        bold: 'src/fonts/Roboto-Medium.ttf',
+        italics: 'src/fonts/Roboto-Italic.ttf',
+        bolditalics: 'src/fonts/Roboto-MediumItalic.ttf'
     }
 };
-const PdfPrinter = require('pdfmake')
-const printer = new PdfPrinter(fonts);
-const fs = require('fs')
-
+const pdfmake_1 = __importDefault(require("pdfmake"));
+const fs_1 = __importDefault(require("fs"));
+const router = express_1.Router();
+const printer = new pdfmake_1.default(fonts);
 router.post('/', (req, res) => {
-
-    const { order } = req.body;    
-
-
+    const { order } = req.body;
     const invoiceBody = [];
-    // Generate Header
     invoiceBody.push([
         { text: 'Bestellter Artikel', bold: true, border: [false], style: 'tableHeader' },
         { text: 'Artikelnummer', bold: true, border: [false], style: 'tableHeader' },
         { text: 'Menge', bold: true, border: [false], style: 'tableHeader' },
         { text: 'Preis', bold: true, border: [false], style: 'tableHeader' }
-    ])
-    // Generate Rows
+    ]);
     if (order.items) {
         for (let index = 0; index < order.items.length; index++) {
-            invoiceBody.push(
-                [
-                    { text: order.items[index].product.vendor.name, bold: true, color: 'black', border: [false] },
-                    { text: '', border: [false] },
-                    { text: '', border: [false] },
-                    { text: '', border: [false] },
-                ],
-                [
-                    { text: order.items[index].product.name, bold: true, color: 'gray', border: [false], style: 'tableRow' },
-                    { text: `#${order.items[index].product.sku}`, italics: true, color: 'gray', border: [false], style: 'tableRow' },
-                    { text: order.items[index].quantity, italics: true, color: 'gray', border: [false], style: 'tableRow' },
-                    { text: `${order.items[index].price}€`, italics: true, color: 'gray', border: [false], style: 'tableRow' }
-                ]
-            );                
+            invoiceBody.push([
+                { text: order.items[index].product.vendor.name, bold: true, color: 'black', border: [false] },
+                { text: '', border: [false] },
+                { text: '', border: [false] },
+                { text: '', border: [false] },
+            ], [
+                { text: order.items[index].product.name, bold: true, color: 'gray', border: [false], style: 'tableRow' },
+                { text: `#${order.items[index].product.sku}`, italics: true, color: 'gray', border: [false], style: 'tableRow' },
+                { text: order.items[index].quantity, italics: true, color: 'gray', border: [false], style: 'tableRow' },
+                { text: `${order.items[index].price}€`, italics: true, color: 'gray', border: [false], style: 'tableRow' }
+            ]);
         }
-    } else {
+    }
+    else {
         invoiceBody.push([
             { text: 'N/A', bold: true, color: 'gray', border: [false] },
             { text: 'N/A', bold: true, color: 'gray', border: [false] },
             { text: 'N/A', bold: true, color: 'gray', border: [false] },
             { text: 'N/A', bold: true, color: 'gray', border: [false] },
-        ])
+        ]);
     }
-
     const docDefinition = {
         content: [
-            { text: 'beeanco', style: 'brand', alignment: 'center' },
+            { text: 'beeanco', style: 'brand', alignment: 'center', tocItem: false },
             { text: `Danke ${order.buyer.firstName},`, style: 'header' },
             { text: `für deine Bestellung!`, style: 'header' },
-
             { text: `Hiermit bestätigen wir deine Bestellung bei beeanco. Bitte überprüfe noch einmal unten aufgelistet deine bestellten Artikel und deine angegebene Lieferadresse`, style: 'subheader' },
-
             {
                 style: 'addresses',
                 table: {
@@ -105,7 +99,7 @@ router.post('/', (req, res) => {
         styles: {
             brand: {
                 fontSize: 20,
-                bold: true,                
+                bold: true,
                 margin: [0, 0, 0, 20]
             },
             header: {
@@ -120,11 +114,9 @@ router.post('/', (req, res) => {
             },
             addresses: {
                 margin: [0, 5, 0, 15],
-                borderCollapse: 'collapse'
             },
             invoice: {
                 margin: [0, 5, 0, 15],
-                borderCollapse: 'collapse'
             },
             tableHeader: {
                 margin: [0, 5, 0, 15]
@@ -135,14 +127,9 @@ router.post('/', (req, res) => {
         },
         defaultStyle: {}
     };
-
     const pdfDoc = printer.createPdfKitDocument(docDefinition);
-    pdfDoc.pipe(fs.createWriteStream('test/results/sample-request.pdf'));
+    pdfDoc.pipe(fs_1.default.createWriteStream('test/results/sample-request.pdf'));
     pdfDoc.end();
-
     res.json({ message: 'Invoice Successfully generated!' });
-
 });
-
-
-module.exports = router;
+exports.default = router;
