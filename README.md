@@ -13,7 +13,7 @@ Send the sample request data at [`./test/fixtures/sample-request.json`](./test/f
 Running `npm run test` does exactly this, with _curl_:
 
 ```sh
-curl -X POST -H "Content-Type: application/json" -d @./test/fixtures/sample-request.json http://localhost:3000 --output test/results/sample-request.pdf
+curl -X POST -H "Content-Type: application/json" -d @./test/fixtures/sample-request.json http://localhost:3000/api/invoices --output test/results/sample-request.pdf
 ```
 
 > Note that the test script may not work on a non-unix (e.g. Windows) platform

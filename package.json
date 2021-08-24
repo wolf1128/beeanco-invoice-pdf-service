@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "echo \"Error: Insert your start script here\" && exit 1",
-    "test": "curl -X POST -H \"Content-Type: application/json\" -d @./test/fixtures/sample-request.json http://localhost:3000 --output test/results/sample-request.pdf"
+    "test": "curl -X POST -H \"Content-Type: application/json\" -d @./test/fixtures/sample-request.json http://localhost:3000/api/invoices --output test/results/sample-request.pdf"
   },
   "repository": {
     "type": "git",
