@@ -4,6 +4,8 @@ Main objective is to develop a node.js microservice that renders invoices to PDF
 
 ## Details
 
+- First install the dependencies using `npm install`
+- Second compile your typescript files using `tsc`
 - The service should be started with `npm run start` and listen on port 3000
 
 ## Testing
